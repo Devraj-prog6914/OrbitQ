@@ -40,9 +40,6 @@ def on_startup():
 def optimize_trajectory(request: MissionRequest, db: Session = Depends(get_db)):
     params = request.dict()
     
-    # Simulate processing time for QUBO solver
-    time.sleep(1.5)
-    
     # Run optimization engines
     classical_res = optimize_classical(params)
     quantum_res = optimize_quantum(params)
@@ -52,17 +49,20 @@ def optimize_trajectory(request: MissionRequest, db: Session = Depends(get_db)):
     if classical_res["fuelCost"] > 0:
         fuel_saved = (classical_res["fuelCost"] - quantum_res["fuelCost"]) / classical_res["fuelCost"] * 100
         
-    # Log to DB
-    run = MissionRun(
-        origin=request.origin,
-        destination=request.destination,
-        mass=request.mass,
-        classical_delta_v=classical_res["deltaV"],
-        quantum_delta_v=quantum_res["deltaV"],
-        fuel_saved_percent=fuel_saved
-    )
-    db.add(run)
-    db.commit()
+    # Safe DB logging (skips gracefully if filesystem is read-only like Vercel)
+    try:
+        run = MissionRun(
+            origin=request.origin,
+            destination=request.destination,
+            mass=request.mass,
+            classical_delta_v=classical_res["deltaV"],
+            quantum_delta_v=quantum_res["deltaV"],
+            fuel_saved_percent=fuel_saved
+        )
+        db.add(run)
+        db.commit()
+    except Exception as db_err:
+        pass
     
     return {
         "classical": classical_res,

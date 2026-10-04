@@ -17,8 +17,8 @@ def optimize_classical(params: dict) -> Dict[str, Any]:
     if destination in ["Mercury", "Venus"]:
         base_dv = 7.5
     
-    # Simulate a slow Differential Evolution (DE) search
-    time.sleep(random.uniform(2.5, 4.0)) 
+    # Fast Differential Evolution simulation
+    time.sleep(0.1) 
     runtime_sec = time.time() - start_time
     
     classical_dv = base_dv + random.uniform(0.5, 2.5)

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useMissionStore } from '../../store/missionStore';
-import { Cpu, X, Zap, Sliders, Activity, Layers, Network, Info, ShieldCheck } from 'lucide-react';
+import { Cpu, X, Zap, Sliders, Activity, Layers, Network, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function QuantumLabModal() {
   const { 
-    isQuantumLabOpen, toggleQuantumLab, quantumResult, params,
+    isQuantumLabOpen, toggleQuantumLab,
     annealingTime, setAnnealingTime, chainStrength, setChainStrength 
   } = useMissionStore();
 

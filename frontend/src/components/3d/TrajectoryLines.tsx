@@ -182,7 +182,7 @@ export default function TrajectoryLines() {
       {classicalPoints.length > 0 && (
         <Line
           points={classicalPoints}
-          color={[1, 0.1, 0.1]}
+          color="#ff3333"
           lineWidth={2}
           dashed={true}
           dashSize={0.5}
@@ -194,7 +194,7 @@ export default function TrajectoryLines() {
       {quantumPoints.length > 0 && (
         <Line
           points={quantumPoints}
-          color={[0.1, 2.5, 1.0]} 
+          color="#00ffcc" 
           lineWidth={3.5}
           toneMapped={false} 
         />

@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMissionStore } from '../../store/missionStore';
-import { X, Sigma, Zap, Activity, Info, Landmark, Orbit, HelpCircle } from 'lucide-react';
+import { X, Sigma, Zap, Activity, Info, HelpCircle } from 'lucide-react';
 
 export default function CalculationsMatrix() {
   const { isMatrixOpen, toggleMatrix, quantumResult, params } = useMissionStore();
@@ -155,7 +155,7 @@ export default function CalculationsMatrix() {
                         </div>
                         <div className="border-t border-white/10 pt-2 flex justify-between items-center">
                           <span className="text-gray-400">Total Trajectory ΔV:</span>
-                          <span className="text-blue-300 text-lg font-bold">{(parseFloat(calculus.total_delta_v)).toFixed(2)} km/s</span>
+                          <span className="text-blue-300 text-lg font-bold">{(Number(calculus.total_delta_v)).toFixed(2)} km/s</span>
                         </div>
                       </div>
 

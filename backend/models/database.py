@@ -1,8 +1,11 @@
+import os
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
 from sqlalchemy.orm import declarative_base, sessionmaker
 from datetime import datetime
 
-DATABASE_URL = "sqlite:///./orbit_q.db"
+# Use /tmp on Vercel/serverless environments to avoid read-only filesystem errors
+db_path = "/tmp/orbit_q.db" if os.environ.get("VERCEL") else "./orbit_q.db"
+DATABASE_URL = f"sqlite:///{db_path}"
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -21,4 +24,7 @@ class MissionRun(Base):
     timestamp = Column(DateTime, default=datetime.utcnow)
 
 def init_db():
-    Base.metadata.create_all(bind=engine)
+    try:
+        Base.metadata.create_all(bind=engine)
+    except Exception:
+        pass

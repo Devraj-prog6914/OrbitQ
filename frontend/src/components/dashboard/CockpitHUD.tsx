@@ -3,7 +3,7 @@ import { Eye, Crosshair, Navigation, AlertTriangle, Compass } from 'lucide-react
 import { motion } from 'framer-motion';
 
 export default function CockpitHUD() {
-  const { isCockpitView, toggleCockpitView, params, quantumResult } = useMissionStore();
+  const { isCockpitView, toggleCockpitView, params } = useMissionStore();
 
   if (!isCockpitView) return null;
 

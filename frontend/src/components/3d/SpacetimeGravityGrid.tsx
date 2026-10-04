@@ -25,7 +25,7 @@ export default function SpacetimeGravityGrid() {
     return geo;
   }, [gridSize, gridResolution]);
 
-  useFrame(({ clock }) => {
+  useFrame(() => {
     if (!meshRef.current || !isGravityGridVisible) return;
     const posAttr = geometry.attributes.position;
     const array = posAttr.array as Float32Array;
